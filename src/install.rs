@@ -146,9 +146,9 @@ pub fn install_ipa(bundle_id: String) -> Res<()> {
             info!("Done!");
             Ok(())
         }
-        Err(e) => {
-            error!("Unable to install app: {:?}", e);
-            Err(Errors::InstallApp)
+        Err((err, description)) => {
+            error!("Unable to install app: {:?}: {}", err, description);
+            Err(Errors::InstallApp(format!("{:?}: {}", err, description)))
         }
     }
 }
